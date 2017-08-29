@@ -1,4 +1,4 @@
-var connection = require("connection.js");
+var connection = require("../config/connection.js");
 
 // Helper function for SQL syntax.
 function printQuestionMarks(num) {
@@ -54,12 +54,15 @@ var orm = {
       cb(result);
     });
   },
+  update: function(table, objColVals, condition, cb) {
+    var queryString = "UPDATE " + table;
 
-  delete: function(table, condition, cb) {
-    var queryString = "DELETE FROM " + table;
+    queryString += " SET ";
+    queryString += objToSql(objColVals);
     queryString += " WHERE ";
     queryString += condition;
 
+    console.log(queryString);
     connection.query(queryString, function(err, result) {
       if (err) {
         throw err;
