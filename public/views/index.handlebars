@@ -1,0 +1,43 @@
+
+<h1>Eat-Da-Burger</h1>
+
+<ul>
+  {{#each burgers}}
+    {{#unless this.devoured}}
+      <li>
+        {{this.id}}
+        {{this.burger_name}}
+        <form action="/index/{{this.id}}?_method=PUT" method="POST">
+          <input type="hidden" name="devour" value="true">
+          <button type="submit">Devour It!</button>
+        </form>
+      </li>
+    {{/unless}}
+  {{/each}}
+</ul>
+
+
+<ul>
+  {{#each burgers}}
+    {{#if this.devoured}}
+      <li>
+        {{this.id}}
+        {{this.burger_name}}
+
+        <form action="/index/{{this.id}}?_method=PUT" method="POST">
+          <input type="hidden" name="devour" value="false">
+        </form>
+      </li>
+    {{/if}}
+  {{/each}}
+</ul>
+
+
+<form method="POST" action="/index">
+  <textarea type="text" name="new-burger"></textarea>
+  <button type="submit">Submit!</button>
+</form>
+
+<footer>
+  Eat a burger you want to eat Click the "Submit" button
+</footer>
